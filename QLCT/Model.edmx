@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuanLyChiTieuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DanhSachChiTieu">
+          <Key>
+            <PropertyRef Name="MaChiTieu" />
+          </Key>
+          <Property Name="MaChiTieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenChiTieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="GiaTien" Type="money" />
+          <Property Name="NgayNhap" Type="smalldatetime" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaLoai" Type="int" />
+        </EntityType>
+        <EntityType Name="LoaiChiTieu">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiChiTieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DanhSachChiTieu_LoaiChiTieu">
+          <End Role="LoaiChiTieu" Type="Self.LoaiChiTieu" Multiplicity="0..1" />
+          <End Role="DanhSachChiTieu" Type="Self.DanhSachChiTieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiChiTieu">
+              <PropertyRef Name="MaLoai" />
+            </Principal>
+            <Dependent Role="DanhSachChiTieu">
+              <PropertyRef Name="MaLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLyChiTieuModelStoreContainer">
+          <EntitySet Name="DanhSachChiTieu" EntityType="Self.DanhSachChiTieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiChiTieu" EntityType="Self.LoaiChiTieu" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DanhSachChiTieu_LoaiChiTieu" Association="Self.FK_DanhSachChiTieu_LoaiChiTieu">
+            <End Role="LoaiChiTieu" EntitySet="LoaiChiTieu" />
+            <End Role="DanhSachChiTieu" EntitySet="DanhSachChiTieu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuanLyChiTieuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DanhSachChiTieu">
+          <Key>
+            <PropertyRef Name="MaChiTieu" />
+          </Key>
+          <Property Name="MaChiTieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenChiTieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GiaTien" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+          <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaLoai" Type="Int32" />
+          <NavigationProperty Name="LoaiChiTieu" Relationship="Self.FK_DanhSachChiTieu_LoaiChiTieu" FromRole="DanhSachChiTieu" ToRole="LoaiChiTieu" />
+        </EntityType>
+        <EntityType Name="LoaiChiTieu">
+          <Key>
+            <PropertyRef Name="MaLoai" />
+          </Key>
+          <Property Name="MaLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiChiTieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DanhSachChiTieux" Relationship="Self.FK_DanhSachChiTieu_LoaiChiTieu" FromRole="LoaiChiTieu" ToRole="DanhSachChiTieu" />
+        </EntityType>
+        <Association Name="FK_DanhSachChiTieu_LoaiChiTieu">
+          <End Role="LoaiChiTieu" Type="Self.LoaiChiTieu" Multiplicity="0..1" />
+          <End Role="DanhSachChiTieu" Type="Self.DanhSachChiTieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiChiTieu">
+              <PropertyRef Name="MaLoai" />
+            </Principal>
+            <Dependent Role="DanhSachChiTieu">
+              <PropertyRef Name="MaLoai" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuanLyChiTieuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DanhSachChiTieux" EntityType="Self.DanhSachChiTieu" />
+          <EntitySet Name="LoaiChiTieux" EntityType="Self.LoaiChiTieu" />
+          <AssociationSet Name="FK_DanhSachChiTieu_LoaiChiTieu" Association="Self.FK_DanhSachChiTieu_LoaiChiTieu">
+            <End Role="LoaiChiTieu" EntitySet="LoaiChiTieux" />
+            <End Role="DanhSachChiTieu" EntitySet="DanhSachChiTieux" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuanLyChiTieuModelStoreContainer" CdmEntityContainer="QuanLyChiTieuEntities">
+          <EntitySetMapping Name="DanhSachChiTieux">
+            <EntityTypeMapping TypeName="QuanLyChiTieuModel.DanhSachChiTieu">
+              <MappingFragment StoreEntitySet="DanhSachChiTieu">
+                <ScalarProperty Name="MaChiTieu" ColumnName="MaChiTieu" />
+                <ScalarProperty Name="TenChiTieu" ColumnName="TenChiTieu" />
+                <ScalarProperty Name="GiaTien" ColumnName="GiaTien" />
+                <ScalarProperty Name="NgayNhap" ColumnName="NgayNhap" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiChiTieux">
+            <EntityTypeMapping TypeName="QuanLyChiTieuModel.LoaiChiTieu">
+              <MappingFragment StoreEntitySet="LoaiChiTieu">
+                <ScalarProperty Name="MaLoai" ColumnName="MaLoai" />
+                <ScalarProperty Name="TenLoaiChiTieu" ColumnName="TenLoaiChiTieu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

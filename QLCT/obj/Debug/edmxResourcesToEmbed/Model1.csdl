@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyChiTieuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DanhSachChiTieu">
+    <Key>
+      <PropertyRef Name="MaChiTieu" />
+    </Key>
+    <Property Name="MaChiTieu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenChiTieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GiaTien" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+    <Property Name="GhiChu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LoaiChiTieu" Relationship="Self.FK__DanhSachC__TenCh__060DEAE8" FromRole="DanhSachChiTieu" ToRole="LoaiChiTieu" />
+  </EntityType>
+  <EntityType Name="LoaiChiTieu">
+    <Key>
+      <PropertyRef Name="TenChiTieu" />
+    </Key>
+    <Property Name="MaLoai" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenChiTieu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DanhSachChiTieux" Relationship="Self.FK__DanhSachC__TenCh__060DEAE8" FromRole="LoaiChiTieu" ToRole="DanhSachChiTieu" />
+  </EntityType>
+  <Association Name="FK__DanhSachC__TenCh__060DEAE8">
+    <End Role="LoaiChiTieu" Type="Self.LoaiChiTieu" Multiplicity="1" />
+    <End Role="DanhSachChiTieu" Type="Self.DanhSachChiTieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiChiTieu">
+        <PropertyRef Name="TenChiTieu" />
+      </Principal>
+      <Dependent Role="DanhSachChiTieu">
+        <PropertyRef Name="TenChiTieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLCTEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DanhSachChiTieux" EntityType="Self.DanhSachChiTieu" />
+    <EntitySet Name="LoaiChiTieux" EntityType="Self.LoaiChiTieu" />
+    <AssociationSet Name="FK__DanhSachC__TenCh__060DEAE8" Association="Self.FK__DanhSachC__TenCh__060DEAE8">
+      <End Role="LoaiChiTieu" EntitySet="LoaiChiTieux" />
+      <End Role="DanhSachChiTieu" EntitySet="DanhSachChiTieux" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

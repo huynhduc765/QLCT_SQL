@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyChiTieuModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DanhSachChiTieu">
+    <Key>
+      <PropertyRef Name="MaChiTieu" />
+    </Key>
+    <Property Name="MaChiTieu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenChiTieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="GiaTien" Type="smallmoney" StoreGeneratedPattern="None" />
+    <Property Name="NgayNhap" Type="smalldatetime" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="LoaiChiTieu">
+    <Key>
+      <PropertyRef Name="TenChiTieu" />
+    </Key>
+    <Property Name="MaLoai" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenChiTieu" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__DanhSachC__TenCh__07020F21">
+    <End Role="LoaiChiTieu" Type="Self.LoaiChiTieu" Multiplicity="1" />
+    <End Role="DanhSachChiTieu" Type="Self.DanhSachChiTieu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LoaiChiTieu">
+        <PropertyRef Name="TenChiTieu" />
+      </Principal>
+      <Dependent Role="DanhSachChiTieu">
+        <PropertyRef Name="TenChiTieu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyChiTieuModel1StoreContainer">
+    <EntitySet Name="DanhSachChiTieu" EntityType="Self.DanhSachChiTieu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoaiChiTieu" EntityType="Self.LoaiChiTieu" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__DanhSachC__TenCh__07020F21" Association="Self.FK__DanhSachC__TenCh__07020F21">
+      <End Role="LoaiChiTieu" EntitySet="LoaiChiTieu" />
+      <End Role="DanhSachChiTieu" EntitySet="DanhSachChiTieu" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
